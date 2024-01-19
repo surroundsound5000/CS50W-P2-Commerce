@@ -1,0 +1,25 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    <h2>New Listing</h2>
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+    
+    <form action = "" method = "post"> 
+        {% csrf_token %} 
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value=Submit> 
+    </form> 
+
+    {% else %}
+    Not signed in.
+    {% endif %}
+
+{% endblock %}
