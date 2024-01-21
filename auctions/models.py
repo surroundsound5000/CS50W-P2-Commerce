@@ -15,12 +15,13 @@ class Listing(models.Model):
 
     title = models.CharField(max_length=64)
     description = models.CharField(max_length=256)
-    image = models.CharField(max_length=64)
-    
+    image = models.CharField(max_length=64, blank=True, null=True)
+    starting_bid = models.DecimalField(max_digits=8, decimal_places=2, default = 0, blank=True)
     active = models.BooleanField()
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    seller = models.ForeignKey(User, on_delete=models.CASCADE)
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name="seller")
+    winner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="winner")
 
     def __str__(self):
         return f"{self.id}: {self.title} ({self.description})"
