@@ -3,35 +3,37 @@ from django.db import models
 
 
 class User(AbstractUser):
-    pass
+    pass 
 
-class Categories(models.Model):
+class Category(models.Model):
     category = models.CharField(max_length=64)
 
+    def __str__(self):
+        return f"{self.category}"
+
 class Listing(models.Model):
+
     title = models.CharField(max_length=64)
     description = models.CharField(max_length=256)
     image = models.CharField(max_length=64)
     
     active = models.BooleanField()
 
-    category = models.ForeignKey(Categories, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     seller = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.id}: {self.title} ({self.description}))"
+        return f"{self.id}: {self.title} ({self.description})"
 
-class Bids(models.Model):
+class Bid(models.Model):
     amount = models.DecimalField(max_digits=8, decimal_places=2)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="bids")
 
-class Comments(models.Model):
+class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
     comment = models.CharField(max_length=256)
-    
-
 
 class Watchlist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

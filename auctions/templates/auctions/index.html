@@ -3,5 +3,19 @@
 {% block body %}
     <h2>Active Listings</h2>
 
-    TODO
+    {% if message %}
+    <div>{{ message }}</div>
+{% endif %}
+
+{% if user.is_authenticated %}
+
+{% for item in listings %}
+* {{item.title}}
+{% endfor %}
+
+
+{% else %}
+Not signed in.
+{% endif %}    
+    
 {% endblock %}
