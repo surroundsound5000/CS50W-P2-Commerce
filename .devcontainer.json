@@ -3,17 +3,17 @@
   "dockerFile": "Dockerfile",
   "context": ".",
 
-  // Forward the Django development server port
+  // Forward Django server port
   "forwardPorts": [8000],
 
-  // Features and tools
+  // Set features and tools
   "features": {
     "ghcr.io/devcontainers/features/python:1": {
       "version": "3.10"
     }
   },
 
-  // Install any post-startup commands
+  // Install commands to run after the container is created
   "postCreateCommand": "pip install -r requirements.txt",
 
   // Set environment variables
@@ -21,15 +21,15 @@
     "DJANGO_SETTINGS_MODULE": "your_project.settings"
   },
 
-  // Mount the workspace source code
+  // Configure workspace settings
   "workspaceFolder": "/workspace",
 
-  // Custom settings for development
+  // Developer environment settings
   "settings": {
     "python.pythonPath": "/usr/local/bin/python",
     "python.formatting.provider": "black"
   },
 
-  // Set default user
+  // Set the default user to vscode
   "remoteUser": "vscode"
 }
