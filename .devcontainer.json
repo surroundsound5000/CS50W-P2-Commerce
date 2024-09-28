@@ -22,7 +22,6 @@
   },
 
   // Mount the workspace source code
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
   "workspaceFolder": "/workspace",
 
   // Custom settings for development
