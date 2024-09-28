@@ -1,0 +1,36 @@
+{
+  "name": "Django + Submit50 Dev Container",
+  "dockerFile": "Dockerfile",
+  "context": ".",
+
+  // Forward the Django development server port
+  "forwardPorts": [8000],
+
+  // Features and tools
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.10"
+    }
+  },
+
+  // Install any post-startup commands
+  "postCreateCommand": "pip install -r requirements.txt",
+
+  // Set environment variables
+  "remoteEnv": {
+    "DJANGO_SETTINGS_MODULE": "your_project.settings"
+  },
+
+  // Mount the workspace source code
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+  "workspaceFolder": "/workspace",
+
+  // Custom settings for development
+  "settings": {
+    "python.pythonPath": "/usr/local/bin/python",
+    "python.formatting.provider": "black"
+  },
+
+  // Set default user
+  "remoteUser": "vscode"
+}
