@@ -1,7 +1,7 @@
-# Use a Python base image
+# Use a stable Python base image
 FROM python:3.10-slim
 
-# Set environment variables
+# Set environment variables to prevent .pyc files and enable unbuffered logs
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
@@ -11,26 +11,24 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     curl \
     git \
-    && rm -rf /var/lib/apt/lists/*
+    ca-certificates \
+    gnupg2
 
-# Install pipenv or other tools
-RUN pip install --upgrade pip
-
-# Install submit50 CLI
-RUN curl -s https://packagecloud.io/install/repositories/cs50/repo/script.deb.sh | bash
-RUN apt-get install -y submit50
+# Add CS50 repo and install submit50
+RUN curl -s https://packagecloud.io/install/repositories/cs50/repo/script.deb.sh | bash && \
+    apt-get install -y submit50
 
 # Set the working directory
 WORKDIR /workspace
 
-# Copy requirements file
+# Copy requirements.txt (ensure this exists in your project)
 COPY requirements.txt .
 
 # Install Python dependencies
 RUN pip install -r requirements.txt
 
-# Expose port for Django server
+# Expose port 8000 for Django
 EXPOSE 8000
 
-# Command to run Django server (can be overridden in devcontainer.json)
+# Command to start Django server (can be overridden)
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
